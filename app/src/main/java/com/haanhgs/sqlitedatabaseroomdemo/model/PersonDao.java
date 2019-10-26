@@ -32,4 +32,17 @@ public interface PersonDao {
 
     @Query("select * from person_table order by PersonId asc")
     LiveData<List<Person>> getAllPersonSortById();
+
+    @Insert
+    void insertJob(Job job);
+
+    @Delete
+    void deleteJob(Job job);
+
+    @Query("update job_table set jobName = :jobName where jobId = :jobId")
+    void update(String jobName, int jobId);
+
+    @Query("select * from job_table order by jobId asc")
+    LiveData<List<Job>> getAllJob();
+
 }
