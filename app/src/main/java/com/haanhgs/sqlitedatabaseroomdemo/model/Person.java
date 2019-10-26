@@ -1,6 +1,5 @@
 package com.haanhgs.sqlitedatabaseroomdemo.model;
 
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -10,27 +9,31 @@ import androidx.room.PrimaryKey;
 public class Person {
 
     @PrimaryKey(autoGenerate = true)
-    private int Id;
+    private int PersonId;
 
     @ColumnInfo(name = "name")
     @NonNull
     private String name;
 
+    @ColumnInfo(name = "job")
+    private Job job;
+
     @ColumnInfo(name = "age")
     private int age;
 
-    public Person(int id, @NonNull String name, int age) {
-        Id = id;
+    public Person(int id, @NonNull String name, Job job, int age) {
+        PersonId = id;
         this.name = name;
         this.age = age;
+        this.job = job;
     }
 
-    public int getId() {
-        return Id;
+    public int getPersonId() {
+        return PersonId;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setPersonId(int personId) {
+        PersonId = personId;
     }
 
     @NonNull
@@ -40,6 +43,14 @@ public class Person {
 
     public void setName(@NonNull String name) {
         this.name = name;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public int getAge() {

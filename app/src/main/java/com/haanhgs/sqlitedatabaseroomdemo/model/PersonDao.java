@@ -12,23 +12,24 @@ import androidx.room.Query;
 public interface PersonDao {
 
     @Insert
-    void insert(Person person);
+    void insertPerson(Person person);
 
     @Delete
-    void delete(Person person);
+    void deletePerson(Person person);
 
     @Query("delete from person_table")
-    void deleteAll();
+    void deleteAllPerson();
 
-    @Query("update person_table set name = :name, age = :age where id = :id")
-    void update(@NonNull String name, int age, int id);
+    @Query("update person_table set name = :name, job = :job, age = :age where PersonId = " +
+            ":personId")
+    void update(@NonNull String name, Job job, int age, int personId);
 
     @Query("select * from person_table order by name asc")
-    LiveData<List<Person>> getAllSortByName();
+    LiveData<List<Person>> getAllPersonSortByName();
 
     @Query("select * from person_table order by age asc")
-    LiveData<List<Person>> getAllSortByAge();
+    LiveData<List<Person>> getAllPersonSortByAge();
 
-    @Query("select * from person_table order by Id asc")
-    LiveData<List<Person>> getAllSortById();
+    @Query("select * from person_table order by PersonId asc")
+    LiveData<List<Person>> getAllPersonSortById();
 }
