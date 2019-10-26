@@ -12,32 +12,27 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/mniInsert"
+        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.insert.InsertFragment"
+        android:label="@string/insert"
+        tools:layout="@layout/fragment_insert" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/mniUpdate"
+        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.update.UpdateFragment"
+        android:label="@string/update"
+        tools:layout="@layout/fragment_update" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/mniSearch"
+        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:id="@+id/mniDelete"
+        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.delete.DeleteFragment"
+        android:label="@string/delete"
+        tools:layout="@layout/fragment_delete" />
 
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
 </navigation>
