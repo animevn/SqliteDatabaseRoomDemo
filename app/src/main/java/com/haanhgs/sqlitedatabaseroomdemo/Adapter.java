@@ -65,7 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return allPerson == null? 0 : allPerson.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvId;
         private TextView tvName;
@@ -78,6 +78,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             tvName = itemView.findViewById(R.id.tvName);
             tvAge = itemView.findViewById(R.id.tvAge);
             tvJob = itemView.findViewById(R.id.tvJob);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 }

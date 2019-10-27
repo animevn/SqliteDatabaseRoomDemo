@@ -19,7 +19,6 @@ import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Job;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class InsertFragment extends Fragment {
     private List<String> strings = new ArrayList<>();
     private List<Integer>jobIds = new ArrayList<>();
     private ArrayAdapter<String> adapter;
-    private Spinner spJob;
     private int spinnerPostitionSelected;
 
     @Override
@@ -64,7 +62,7 @@ public class InsertFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        spJob = view.findViewById(R.id.spJob);
+        Spinner spJob = view.findViewById(R.id.spJob);
         spJob.setAdapter(adapter);
         spJob.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
