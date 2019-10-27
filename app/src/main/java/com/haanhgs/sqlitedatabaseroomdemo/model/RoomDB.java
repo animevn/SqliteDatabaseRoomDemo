@@ -19,7 +19,7 @@ public abstract class RoomDB extends RoomDatabase {
         private final PersonDao personDao;
         private String[]strings = {"alpha", "beta", "gamma"};
         private int[]ages = {40, 30, 20};
-        private int[]jobs = {1, 2, 1};
+        private int[]jobs = {1, 2, 3};
         private String[]jobNames = {"jobless", "full time", "freelance"};
 
         InitDatabaseAsync(RoomDB roomDB) {
