@@ -1,6 +1,7 @@
 package com.haanhgs.sqlitedatabaseroomdemo;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,16 @@ import com.haanhgs.sqlitedatabaseroomdemo.model.Job;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
 import com.haanhgs.sqlitedatabaseroomdemo.model.RoomDB;
 import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
+import com.haanhgs.sqlitedatabaseroomdemo.ui.home.HomeFragment;
+import com.haanhgs.sqlitedatabaseroomdemo.ui.insert.InsertFragment;
 
 import java.util.List;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavHostController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -83,7 +91,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-
+//            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//            InsertFragment fragment = new InsertFragment();
+//            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.flFragment, fragment);
+//            ft.addToBackStack(null);
+//            ft.commit();
+            Bundle bundle = new Bundle();
+            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_mniInsert);
         }
     }
 }
