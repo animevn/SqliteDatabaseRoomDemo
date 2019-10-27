@@ -8,9 +8,10 @@ import androidx.room.PrimaryKey;
 public class Job {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "job_id")
     private int jobId;
 
-    @ColumnInfo(name = "jobName")
+    @ColumnInfo(name = "job_name")
     private String jobName;
 
     public Job(int jobId, String jobName) {

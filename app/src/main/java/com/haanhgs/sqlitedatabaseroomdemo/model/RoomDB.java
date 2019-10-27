@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 public abstract class RoomDB extends RoomDatabase {
 
     private static RoomDB instance;
+    public abstract PersonDao personDao();
 
     public static RoomDB init(final Context context){
         if (instance == null){
