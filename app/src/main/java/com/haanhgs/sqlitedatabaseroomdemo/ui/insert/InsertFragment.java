@@ -207,7 +207,7 @@ public class InsertFragment extends Fragment {
                 createNewRecord();
                 updateRecord();
                 hideSoftKey(v);
-                Navigation.findNavController(v).navigate(R.id.action_mniInsert_to_nav_home);
+                Navigation.findNavController(v).popBackStack();
             }
         });
     }
