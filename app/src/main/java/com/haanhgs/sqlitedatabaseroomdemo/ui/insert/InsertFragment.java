@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,10 +14,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Job;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
@@ -162,12 +163,23 @@ public class InsertFragment extends Fragment {
         }
     }
 
+    private void hideSoftKey(View view){
+        InputMethodManager manager =
+                (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (manager != null){
+            manager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     private void handleButton(){
         bnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createNewRecord();
                 updateRecord();
+                hideSoftKey(v);
+                Navigation.findNavController(v).navigate(R.id.action_mniInsert_to_nav_home);
             }
         });
     }

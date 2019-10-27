@@ -21,7 +21,11 @@
         android:id="@+id/mniInsert"
         android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.insert.InsertFragment"
         android:label="@string/insert"
-        tools:layout="@layout/fragment_insert" />
+        tools:layout="@layout/fragment_insert" >
+        <action
+            android:id="@+id/action_mniInsert_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/mniUpdate"
