@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,6 +21,8 @@ import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Job;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
+import com.haanhgs.sqlitedatabaseroomdemo.model.RoomDB;
+import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,29 +33,41 @@ public class InsertFragment extends Fragment {
     private List<Integer>jobIds = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private int spinnerPostitionSelected;
+    private Model model;
+    private boolean isNew = true;
+    private EditText etInsertName;
+    private EditText etInsertAge;
+    private Button bnInsert;
+    private Spinner spJob;
+    private Person currentPerson;
+    private int persId;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        if (getArguments() != null){
+            isNew = getArguments().getBoolean("isNew");
+            persId = getArguments().getInt("ID");
+        }
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_insert, container, false);
-
-
-        final EditText etInsertName = view.findViewById(R.id.etInsertName);
-        final EditText etInsertAge = view.findViewById(R.id.etInsertAge);
-
-        Button bnInsert = view.findViewById(R.id.bnInsert);
-
-        //setup spinner
+    private void initViews(View view){
+        etInsertName = view.findViewById(R.id.etInsertName);
+        etInsertAge = view.findViewById(R.id.etInsertAge);
+        bnInsert = view.findViewById(R.id.bnInsert);
+        spJob = view.findViewById(R.id.spJob);
         adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, strings);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        if (isNew){
+            bnInsert.setText(R.string.insert);
+        }else {
+            bnInsert.setText(R.string.update);
+        }
+    }
 
-        final Model model = ViewModelProviders.of(this).get(Model.class);
+    private void initModel(){
+        model = ViewModelProviders.of(this).get(Model.class);
         model.getAllJob().observe(this, new Observer<List<Job>>() {
             @Override
             public void onChanged(List<Job> jobs) {
@@ -62,7 +78,11 @@ public class InsertFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        Spinner spJob = view.findViewById(R.id.spJob);
+    }
+
+
+
+    private void handleSpinner(){
         spJob.setAdapter(adapter);
         spJob.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -73,22 +93,100 @@ public class InsertFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+    }
 
+    private void updateViewsIfNotNew(){
+        if (!isNew){
+            RoomRepo.GetPersonAsync async = new RoomRepo.GetPersonAsync(
+                    RoomDB.init(context).personDao(),
+                    new RoomRepo.GetPersonFromID() {
+                        @Override
+                        public void onPostExcecute(Person person) {
+                            currentPerson = person;
+                            etInsertAge.setText(String.format("%s", currentPerson.getAge()));
+                            etInsertName.setText(currentPerson.getName());
+                            int jobId = currentPerson.getJobId();
+                            RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
+                                    RoomDB.init(context).personDao(),
+                                    new RoomRepo.GetJobFromID() {
+                                @Override
+                                public void onPostExcecute(Job job) {
+                                    if (job != null){
+                                        spJob.setSelection(adapter.getPosition(job.getJobName()));
+                                    }
+                                }
+                            });
+                            async.execute(jobId);
+                        }
+                    });
+            async.execute(persId);
+        }
+    }
+
+    private static boolean isInteger(String string){
+        try{
+            return Integer.parseInt(string) > 0;
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void createNewRecord(){
+        if (isNew){
+            if (!TextUtils.isEmpty(etInsertAge.getText())
+                    && !TextUtils.isEmpty(etInsertName.getText())
+                    && isInteger(etInsertAge.getText().toString())){
+                Person person = new Person(0, etInsertName.getText().toString(),
+                        jobIds.get(spinnerPostitionSelected),
+                        Integer.parseInt(etInsertAge.getText().toString()));
+                model.insertPerson(person);
+            } else if (!isInteger(etInsertAge.getText().toString())){
+                Toast.makeText(context, "wrong age :D", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void updateRecord(){
+        if (!isNew){
+            if (!TextUtils.isEmpty(etInsertAge.getText())
+                    && !TextUtils.isEmpty(etInsertName.getText())
+                    && isInteger(etInsertAge.getText().toString())){
+                currentPerson.setAge(Integer.parseInt(etInsertAge.getText().toString()));
+                currentPerson.setName(etInsertName.getText().toString());
+                currentPerson.setJobId(spJob.getSelectedItemPosition() + 1);
+                model.updatePerson(currentPerson);
+            } else if (!isInteger(etInsertAge.getText().toString())){
+                Toast.makeText(context, "wrong age :D", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void handleButton(){
         bnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(etInsertAge.getText())
-                && !TextUtils.isEmpty(etInsertName.getText())){
-
-
-                    Person person = new Person(0, etInsertName.getText().toString(),
-                            jobIds.get(spinnerPostitionSelected),
-                            Integer.parseInt(etInsertAge.getText().toString()));
-                    model.insertPerson(person);
-                }
+                createNewRecord();
+                updateRecord();
             }
         });
+    }
 
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_insert, container, false);
+        initViews(view);
+        initModel();
+        handleSpinner();
+        updateViewsIfNotNew();
+        handleButton();
         return view;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        isNew = true;
     }
 }

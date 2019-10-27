@@ -165,6 +165,31 @@ public class RoomRepo {
         }
     }
 
+    public interface GetPersonFromID{
+        void onPostExcecute(Person person);
+    }
+
+    public static class GetPersonAsync extends AsyncTask<Integer, Void, Person> {
+        private PersonDao dao;
+        private GetPersonFromID listener;
+
+        public GetPersonAsync(PersonDao dao, GetPersonFromID listener){
+            this.dao = dao;
+            this.listener = listener;
+        }
+
+        @Override
+        protected Person doInBackground(Integer... integers) {
+            return dao.getPersonFromID(integers[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Person person) {
+            super.onPostExecute(person);
+            listener.onPostExcecute(person);
+        }
+    }
+
 
 
 }

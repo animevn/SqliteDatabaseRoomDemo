@@ -98,7 +98,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 //            ft.addToBackStack(null);
 //            ft.commit();
             Bundle bundle = new Bundle();
-            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_mniInsert);
+            bundle.putInt("ID", getAdapterPosition() + 1);
+            bundle.putBoolean("isNew", false);
+            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_mniInsert, bundle);
         }
     }
 }
