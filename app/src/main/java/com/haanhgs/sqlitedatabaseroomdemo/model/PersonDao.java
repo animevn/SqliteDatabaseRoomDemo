@@ -26,6 +26,9 @@ public interface PersonDao {
     @Query("select * from person_table order by name asc")
     LiveData<List<Person>> getAllPerson();
 
+    @Query("select * from person_table limit 1")
+    Person[] getAnyPerson();
+
     @Insert
     void insertJob(Job job);
 
@@ -37,6 +40,13 @@ public interface PersonDao {
 
     @Query("delete from job_table")
     void deleteAllJob();
+
+    @Query("select * from job_table limit 1")
+    Job[] getAnyJob();
+
+    @Query("select * from job_table where job_id = :jobId limit 1")
+    Job getJobFromId(int jobId);
+
 
     @Query("select * from job_table order by job_name asc")
     LiveData<List<Job>> getAllJob();
