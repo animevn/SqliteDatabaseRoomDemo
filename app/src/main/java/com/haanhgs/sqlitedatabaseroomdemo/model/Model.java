@@ -1,6 +1,7 @@
 package com.haanhgs.sqlitedatabaseroomdemo.model;
 
 import android.app.Application;
+import android.widget.ArrayAdapter;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Model extends AndroidViewModel {
     private RoomRepo repo;
     private LiveData<List<Person>> allPerson;
     private LiveData<List<Job>> allJob;
+
 
 
     public Model(@NonNull Application application) {

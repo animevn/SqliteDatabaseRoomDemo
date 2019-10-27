@@ -2,7 +2,6 @@ package com.haanhgs.sqlitedatabaseroomdemo.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.haanhgs.sqlitedatabaseroomdemo.Adapter;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
-
 import java.util.List;
 
 public class HomeFragment extends Fragment {

@@ -48,7 +48,7 @@ public interface PersonDao {
     Job getJobFromId(int jobId);
 
 
-    @Query("select * from job_table order by job_name asc")
+    @Query("select * from job_table order by job_id asc")
     LiveData<List<Job>> getAllJob();
 
 }

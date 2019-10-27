@@ -2,7 +2,6 @@ package com.haanhgs.sqlitedatabaseroomdemo.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
