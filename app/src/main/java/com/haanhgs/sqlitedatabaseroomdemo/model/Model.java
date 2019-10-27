@@ -1,6 +1,7 @@
 package com.haanhgs.sqlitedatabaseroomdemo.model;
 
 import android.app.Application;
+import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 
 import java.util.List;
@@ -55,6 +56,5 @@ public class Model extends AndroidViewModel {
     public void updateJob(Job job){
         repo.updateJob(job);
     }
-
 
 }

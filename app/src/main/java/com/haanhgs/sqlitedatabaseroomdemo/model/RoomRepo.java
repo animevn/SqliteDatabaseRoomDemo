@@ -190,6 +190,10 @@ public class RoomRepo {
         }
     }
 
+    public Person getPersonFromID(int id){
+        return personDao.getPersonFromID(id);
+    }
+
 
 
 }

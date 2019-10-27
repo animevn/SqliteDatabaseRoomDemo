@@ -41,7 +41,7 @@ public class InsertFragment extends Fragment {
     private Button bnInsert;
     private Spinner spJob;
     private Person currentPerson;
-    private int persId;
+    private int personId;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -49,7 +49,7 @@ public class InsertFragment extends Fragment {
         this.context = context;
         if (getArguments() != null){
             isNew = getArguments().getBoolean("isNew");
-            persId = getArguments().getInt("ID");
+            personId = getArguments().getInt("ID");
         }
     }
 
@@ -96,31 +96,39 @@ public class InsertFragment extends Fragment {
         });
     }
 
+    private void updateSpinnerWithID(int jobId){
+        RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
+                RoomDB.init(context).personDao(),
+                new RoomRepo.GetJobFromID() {
+                    @Override
+                    public void onPostExcecute(Job job) {
+                        if (job != null){
+                            spJob.setSelection(adapter.getPosition(job.getJobName()));
+                        }
+                    }
+                });
+        async.execute(jobId);
+    }
+
+    private void updateCurrentViews(){
+        RoomRepo.GetPersonAsync async = new RoomRepo.GetPersonAsync(
+                RoomDB.init(context).personDao(),
+                new RoomRepo.GetPersonFromID() {
+                    @Override
+                    public void onPostExcecute(Person person) {
+                        currentPerson = person;
+                        etInsertAge.setText(String.format("%s", currentPerson.getAge()));
+                        etInsertName.setText(currentPerson.getName());
+                        int jobId = currentPerson.getJobId();
+                        updateSpinnerWithID(currentPerson.getJobId());
+                    }
+                });
+        async.execute(personId);
+    }
+
     private void updateViewsIfNotNew(){
         if (!isNew){
-            RoomRepo.GetPersonAsync async = new RoomRepo.GetPersonAsync(
-                    RoomDB.init(context).personDao(),
-                    new RoomRepo.GetPersonFromID() {
-                        @Override
-                        public void onPostExcecute(Person person) {
-                            currentPerson = person;
-                            etInsertAge.setText(String.format("%s", currentPerson.getAge()));
-                            etInsertName.setText(currentPerson.getName());
-                            int jobId = currentPerson.getJobId();
-                            RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
-                                    RoomDB.init(context).personDao(),
-                                    new RoomRepo.GetJobFromID() {
-                                @Override
-                                public void onPostExcecute(Job job) {
-                                    if (job != null){
-                                        spJob.setSelection(adapter.getPosition(job.getJobName()));
-                                    }
-                                }
-                            });
-                            async.execute(jobId);
-                        }
-                    });
-            async.execute(persId);
+            updateCurrentViews();
         }
     }
 
