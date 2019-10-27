@@ -190,4 +190,12 @@ public class RoomRepo {
         }
     }
 
+    public LiveData<Job> findJobById(int jobId){
+        return  personDao.findJobById(jobId);
+    }
+
+    public LiveData<Person> findPersonById(int personId){
+        return personDao.findPersonById(personId);
+    }
+
 }

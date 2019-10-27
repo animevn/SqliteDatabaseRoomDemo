@@ -57,4 +57,12 @@ public class Model extends AndroidViewModel {
         repo.updateJob(job);
     }
 
+    public LiveData<Job> findJobById(int jobId){
+        return repo.findJobById(jobId);
+    }
+
+    public LiveData<Person> findPersonById(int personId){
+        return repo.findPersonById(personId);
+    }
+
 }

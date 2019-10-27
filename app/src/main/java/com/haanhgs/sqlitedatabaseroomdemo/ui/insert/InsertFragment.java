@@ -97,33 +97,53 @@ public class InsertFragment extends Fragment {
     }
 
     private void updateSpinnerWithID(int jobId){
-        RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
-                RoomDB.init(context).personDao(),
-                new RoomRepo.GetJobFromID() {
-                    @Override
-                    public void onPostExcecute(Job job) {
-                        if (job != null){
-                            spJob.setSelection(adapter.getPosition(job.getJobName()));
-                        }
-                    }
-                });
-        async.execute(jobId);
+//        RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
+//                RoomDB.init(context).personDao(),
+//                new RoomRepo.GetJobFromID() {
+//                    @Override
+//                    public void onPostExcecute(Job job) {
+//                        if (job != null){
+//                            spJob.setSelection(adapter.getPosition(job.getJobName()));
+//                        }
+//                    }
+//                });
+//        async.execute(jobId);
+
+        model.findJobById(jobId).observe(this, new Observer<Job>() {
+            @Override
+            public void onChanged(Job job) {
+                if (job != null){
+                    spJob.setSelection(adapter.getPosition(job.getJobName()));
+                }
+            }
+        });
     }
 
     private void updateCurrentViews(){
-        RoomRepo.GetPersonAsync async = new RoomRepo.GetPersonAsync(
-                RoomDB.init(context).personDao(),
-                new RoomRepo.GetPersonFromID() {
-                    @Override
-                    public void onPostExcecute(Person person) {
-                        currentPerson = person;
-                        etInsertAge.setText(String.format("%s", currentPerson.getAge()));
-                        etInsertName.setText(currentPerson.getName());
-                        int jobId = currentPerson.getJobId();
-                        updateSpinnerWithID(currentPerson.getJobId());
-                    }
-                });
-        async.execute(personId);
+//        RoomRepo.GetPersonAsync async = new RoomRepo.GetPersonAsync(
+//                RoomDB.init(context).personDao(),
+//                new RoomRepo.GetPersonFromID() {
+//                    @Override
+//                    public void onPostExcecute(Person person) {
+//                        currentPerson = person;
+//                        etInsertAge.setText(String.format("%s", currentPerson.getAge()));
+//                        etInsertName.setText(currentPerson.getName());
+//                        int jobId = currentPerson.getJobId();
+//                        updateSpinnerWithID(currentPerson.getJobId());
+//                    }
+//                });
+//        async.execute(personId);
+
+        model.findPersonById(personId).observe(this, new Observer<Person>() {
+            @Override
+            public void onChanged(Person person) {
+                currentPerson = person;
+                etInsertAge.setText(String.format("%s", currentPerson.getAge()));
+                etInsertName.setText(currentPerson.getName());
+                int jobId = currentPerson.getJobId();
+                updateSpinnerWithID(currentPerson.getJobId());
+            }
+        });
     }
 
     private void updateViewsIfNotNew(){

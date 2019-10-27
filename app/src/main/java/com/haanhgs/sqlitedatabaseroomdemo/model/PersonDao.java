@@ -26,6 +26,9 @@ public interface PersonDao {
     @Query("select * from person_table where person_id = :personId limit 1")
     Person getPersonFromID(int personId);
 
+    @Query("select * from person_table where person_id = :personId limit 1")
+    LiveData<Person> findPersonById(int personId);
+
     @Query("select * from person_table order by person_id asc")
     LiveData<List<Person>> getAllPerson();
 
@@ -49,6 +52,9 @@ public interface PersonDao {
 
     @Query("select * from job_table where job_id = :jobId limit 1")
     Job getJobFromId(int jobId);
+
+    @Query("select * from job_table where job_id = :jobId limit 1")
+    LiveData<Job> findJobById(int jobId);
 
 
     @Query("select * from job_table order by job_id asc")

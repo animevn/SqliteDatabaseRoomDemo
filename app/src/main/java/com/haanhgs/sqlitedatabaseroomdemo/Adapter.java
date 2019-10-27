@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Job;
+import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
-import com.haanhgs.sqlitedatabaseroomdemo.model.RoomDB;
-import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
 import java.util.List;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private List<Person> allPerson;
     private Context context;
+    private Model model;
+    private LifecycleOwner owner;
+
+    public void setOwner(LifecycleOwner owner) {
+        this.owner = owner;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
 
     public Adapter(Context context){
         this.context = context;
@@ -46,11 +57,22 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.tvAge.setText(String.format("%s", person.getAge()));
 
         int jobId = person.getJobId();
-        RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
-                RoomDB.init(context).personDao(),
-                new RoomRepo.GetJobFromID() {
+//        RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
+//                RoomDB.init(context).personDao(),
+//                new RoomRepo.GetJobFromID() {
+//            @Override
+//            public void onPostExcecute(Job job) {
+//                if (job != null){
+//                    holder.tvJob.setText(job.getJobName());
+//                }else {
+//                    holder.tvJob.setText("");
+//                }
+//            }
+//        });
+//        async.execute(jobId);
+        model.findJobById(jobId).observe(owner, new Observer<Job>() {
             @Override
-            public void onPostExcecute(Job job) {
+            public void onChanged(Job job) {
                 if (job != null){
                     holder.tvJob.setText(job.getJobName());
                 }else {
@@ -58,7 +80,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
             }
         });
-        async.execute(jobId);
     }
 
     @Override

@@ -42,6 +42,8 @@ public class HomeFragment extends Fragment {
 
     private void initModel(){
         model = ViewModelProviders.of(this).get(Model.class);
+        adapter.setModel(model);
+        adapter.setOwner(this);
         model.getAllPerson().observe(this, new Observer<List<Person>>() {
             @Override
             public void onChanged(List<Person> people) {
