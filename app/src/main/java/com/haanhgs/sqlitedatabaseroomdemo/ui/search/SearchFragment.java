@@ -13,12 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.haanhgs.sqlitedatabaseroomdemo.Adapter;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
+import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
+
 import java.util.List;
 
 public class SearchFragment extends Fragment {
@@ -29,8 +32,6 @@ public class SearchFragment extends Fragment {
     private EditText etSearch;
     private Button bnSearch;
     private RecyclerView rvSearch;
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -60,12 +61,33 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    private void setupSwipe(){
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT ) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                model.deletePerson(adapter.getPersonAtPosition(viewHolder.getAdapterPosition()));
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        });
+        helper.attachToRecyclerView(rvSearch);
+    }
+
     private void handleButtonClick(){
         bnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(etSearch.getText())){
                     initModel(etSearch.getText().toString());
+                    setupSwipe();
+                    RoomRepo.hideSoftKey(context, v);
                 }
             }
         });

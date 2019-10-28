@@ -97,18 +97,6 @@ public class InsertFragment extends Fragment {
     }
 
     private void updateSpinnerWithID(int jobId){
-//        RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
-//                RoomDB.init(context).personDao(),
-//                new RoomRepo.GetJobFromID() {
-//                    @Override
-//                    public void onPostExcecute(Job job) {
-//                        if (job != null){
-//                            spJob.setSelection(adapter.getPosition(job.getJobName()));
-//                        }
-//                    }
-//                });
-//        async.execute(jobId);
-
         model.findJobById(jobId).observe(this, new Observer<Job>() {
             @Override
             public void onChanged(Job job) {
@@ -120,20 +108,6 @@ public class InsertFragment extends Fragment {
     }
 
     private void updateCurrentViews(){
-//        RoomRepo.GetPersonAsync async = new RoomRepo.GetPersonAsync(
-//                RoomDB.init(context).personDao(),
-//                new RoomRepo.GetPersonFromID() {
-//                    @Override
-//                    public void onPostExcecute(Person person) {
-//                        currentPerson = person;
-//                        etInsertAge.setText(String.format("%s", currentPerson.getAge()));
-//                        etInsertName.setText(currentPerson.getName());
-//                        int jobId = currentPerson.getJobId();
-//                        updateSpinnerWithID(currentPerson.getJobId());
-//                    }
-//                });
-//        async.execute(personId);
-
         model.findPersonById(personId).observe(this, new Observer<Person>() {
             @Override
             public void onChanged(Person person) {
@@ -191,22 +165,13 @@ public class InsertFragment extends Fragment {
         }
     }
 
-    private void hideSoftKey(View view){
-        InputMethodManager manager =
-                (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (manager != null){
-            manager.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-
     private void handleButton(){
         bnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createNewRecord();
                 updateRecord();
-                hideSoftKey(v);
+                RoomRepo.hideSoftKey(context, v);
                 Navigation.findNavController(v).popBackStack();
             }
         });

@@ -1,7 +1,11 @@
 package com.haanhgs.sqlitedatabaseroomdemo.model;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
 import java.util.List;
 import androidx.lifecycle.LiveData;
 
@@ -144,6 +148,15 @@ public class RoomRepo {
 
     public LiveData<List<Person>> findPersonByName(String name){
         return personDao.findPersonByName(name);
+    }
+
+    public static void hideSoftKey(Context context, View view){
+        InputMethodManager manager =
+                (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (manager != null){
+            manager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
 }
