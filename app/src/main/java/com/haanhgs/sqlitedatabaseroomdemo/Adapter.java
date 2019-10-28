@@ -57,19 +57,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.tvAge.setText(String.format("%s", person.getAge()));
 
         int jobId = person.getJobId();
-//        RoomRepo.GetJobAsync async = new RoomRepo.GetJobAsync(
-//                RoomDB.init(context).personDao(),
-//                new RoomRepo.GetJobFromID() {
-//            @Override
-//            public void onPostExcecute(Job job) {
-//                if (job != null){
-//                    holder.tvJob.setText(job.getJobName());
-//                }else {
-//                    holder.tvJob.setText("");
-//                }
-//            }
-//        });
-//        async.execute(jobId);
         model.findJobById(jobId).observe(owner, new Observer<Job>() {
             @Override
             public void onChanged(Job job) {
