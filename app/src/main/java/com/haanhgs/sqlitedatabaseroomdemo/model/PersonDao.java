@@ -20,6 +20,9 @@ public interface PersonDao {
     @Query("delete from person_table")
     void deleteAllPerson();
 
+    @Query("delete from person_table where name = :name")
+    void deletePersonByName(String name);
+
     @Update
     void update(Person person);
 

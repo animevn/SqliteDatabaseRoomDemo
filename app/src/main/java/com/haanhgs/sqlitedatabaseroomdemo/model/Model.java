@@ -41,6 +41,10 @@ public class Model extends AndroidViewModel {
         repo.deletePerson(person);
     }
 
+    public void deletePersonByName(String string){
+        repo.deletePersonByName(string);
+    }
+
     public void deleteJob(Job job){
         repo.deleteJob(job);
     }

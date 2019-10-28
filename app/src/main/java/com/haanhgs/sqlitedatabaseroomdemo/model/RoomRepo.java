@@ -84,6 +84,24 @@ public class RoomRepo {
         new DeletePersonAsync(personDao).execute(person);
     }
 
+    private static class DeletePersonByNameAsync extends AsyncTask<String, Void, Void> {
+        private PersonDao dao;
+
+        public DeletePersonByNameAsync(PersonDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            dao.deletePersonByName(strings[0]);
+            return null;
+        }
+    }
+
+    public void deletePersonByName(String string){
+        new DeletePersonByNameAsync(personDao).execute(string);
+    }
+
     private static class DeleteJobAsync extends AsyncTask<Job, Void, Void> {
         private PersonDao dao;
 

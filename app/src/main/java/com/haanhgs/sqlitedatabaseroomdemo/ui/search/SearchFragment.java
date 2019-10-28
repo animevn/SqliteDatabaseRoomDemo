@@ -80,6 +80,7 @@ public class SearchFragment extends Fragment {
         helper.attachToRecyclerView(rvSearch);
     }
 
+
     private void handleButtonClick(){
         bnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
