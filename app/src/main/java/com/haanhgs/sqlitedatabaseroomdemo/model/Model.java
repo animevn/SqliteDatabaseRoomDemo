@@ -1,11 +1,7 @@
 package com.haanhgs.sqlitedatabaseroomdemo.model;
 
 import android.app.Application;
-import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
-
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -63,6 +59,10 @@ public class Model extends AndroidViewModel {
 
     public LiveData<Person> findPersonById(int personId){
         return repo.findPersonById(personId);
+    }
+
+    public LiveData<List<Person>> findPersonByName(String name){
+        return repo.findPersonByName(name);
     }
 
 }

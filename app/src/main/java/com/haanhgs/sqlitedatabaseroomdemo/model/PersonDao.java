@@ -24,9 +24,6 @@ public interface PersonDao {
     void update(Person person);
 
     @Query("select * from person_table where person_id = :personId limit 1")
-    Person getPersonFromID(int personId);
-
-    @Query("select * from person_table where person_id = :personId limit 1")
     LiveData<Person> findPersonById(int personId);
 
     @Query("select * from person_table order by person_id asc")
@@ -34,6 +31,9 @@ public interface PersonDao {
 
     @Query("select * from person_table limit 1")
     Person[] getAnyPerson();
+
+    @Query("select * from person_table where name like :name order by name")
+    LiveData<List<Person>> findPersonByName(String name);
 
     @Insert
     void insertJob(Job job);
@@ -49,9 +49,6 @@ public interface PersonDao {
 
     @Query("select * from job_table limit 1")
     Job[] getAnyJob();
-
-    @Query("select * from job_table where job_id = :jobId limit 1")
-    Job getJobFromId(int jobId);
 
     @Query("select * from job_table where job_id = :jobId limit 1")
     LiveData<Job> findJobById(int jobId);

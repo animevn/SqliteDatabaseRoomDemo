@@ -134,68 +134,16 @@ public class RoomRepo {
         new UpdateJobAsync(personDao).execute(job);
     }
 
-    public Job getJob(int id){
-        return personDao.getJobFromId(id);
-    }
-
-
-
-    public interface GetJobFromID{
-        void onPostExcecute(Job job);
-    }
-
-    public static class GetJobAsync extends AsyncTask<Integer, Void, Job> {
-        private PersonDao dao;
-        private GetJobFromID listener;
-
-        public GetJobAsync(PersonDao dao, GetJobFromID listener){
-            this.dao = dao;
-            this.listener = listener;
-        }
-
-        @Override
-        protected Job doInBackground(Integer... integers) {
-            return dao.getJobFromId(integers[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Job job) {
-            super.onPostExecute(job);
-            listener.onPostExcecute(job);
-        }
-    }
-
-    public interface GetPersonFromID{
-        void onPostExcecute(Person person);
-    }
-
-    public static class GetPersonAsync extends AsyncTask<Integer, Void, Person> {
-        private PersonDao dao;
-        private GetPersonFromID listener;
-
-        public GetPersonAsync(PersonDao dao, GetPersonFromID listener){
-            this.dao = dao;
-            this.listener = listener;
-        }
-
-        @Override
-        protected Person doInBackground(Integer... integers) {
-            return dao.getPersonFromID(integers[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Person person) {
-            super.onPostExecute(person);
-            listener.onPostExcecute(person);
-        }
-    }
-
     public LiveData<Job> findJobById(int jobId){
         return  personDao.findJobById(jobId);
     }
 
     public LiveData<Person> findPersonById(int personId){
         return personDao.findPersonById(personId);
+    }
+
+    public LiveData<List<Person>> findPersonByName(String name){
+        return personDao.findPersonByName(name);
     }
 
 }
