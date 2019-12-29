@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,7 +21,6 @@ import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Job;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
-import com.haanhgs.sqlitedatabaseroomdemo.model.RoomDB;
 import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +28,8 @@ import java.util.List;
 public class InsertFragment extends Fragment {
 
     private Context context;
-    private List<String> strings = new ArrayList<>();
-    private List<Integer>jobIds = new ArrayList<>();
+    private final List<String> strings = new ArrayList<>();
+    private final List<Integer>jobIds = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private int spinnerPostitionSelected;
     private Model model;

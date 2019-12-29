@@ -16,10 +16,10 @@ public abstract class RoomDB extends RoomDatabase {
 
     private static class InitDatabaseAsync extends AsyncTask<Void, Void, Void> {
         private final PersonDao personDao;
-        private String[]strings = {"alpha", "beta", "gamma"};
-        private int[]ages = {40, 30, 20};
-        private int[]jobs = {1, 2, 3};
-        private String[]jobNames = {"jobless", "full time", "freelance"};
+        private final String[]strings = {"alpha", "beta", "gamma"};
+        private final int[]ages = {40, 30, 20};
+        private final int[]jobs = {1, 2, 3};
+        private final String[]jobNames = {"jobless", "full time", "freelance"};
 
         InitDatabaseAsync(RoomDB roomDB) {
             personDao = roomDB.personDao();
@@ -41,7 +41,7 @@ public abstract class RoomDB extends RoomDatabase {
         }
     }
 
-    private static RoomDatabase.Callback callback = new RoomDatabase.Callback(){
+    private static final RoomDatabase.Callback callback = new RoomDatabase.Callback(){
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);

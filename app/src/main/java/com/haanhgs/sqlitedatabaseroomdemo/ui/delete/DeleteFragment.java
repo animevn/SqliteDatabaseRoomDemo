@@ -17,7 +17,6 @@ import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 
 public class DeleteFragment extends Fragment {
 
-    private Context context;
     private Model model;
     private EditText etDelete;
     private Button bnDelete;
@@ -25,7 +24,6 @@ public class DeleteFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context = context;
     }
 
     private void initViews(View view){

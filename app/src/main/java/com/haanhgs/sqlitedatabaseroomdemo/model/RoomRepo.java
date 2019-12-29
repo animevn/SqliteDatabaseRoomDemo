@@ -11,9 +11,9 @@ import androidx.lifecycle.LiveData;
 
 public class RoomRepo {
 
-    private PersonDao personDao;
-    private LiveData<List<Person>> allPerson;
-    private LiveData<List<Job>> allJob;
+    private final PersonDao personDao;
+    private final LiveData<List<Person>> allPerson;
+    private final LiveData<List<Job>> allJob;
 
     public LiveData<List<Person>> getAllPerson() {
         return allPerson;
@@ -31,7 +31,7 @@ public class RoomRepo {
     }
 
     private static class InsertPersonAsync extends AsyncTask<Person, Void, Void> {
-        private PersonDao dao;
+        private final PersonDao dao;
 
         public InsertPersonAsync(PersonDao dao){
             this.dao = dao;
@@ -49,7 +49,7 @@ public class RoomRepo {
     }
 
     private static class InsertJobAsync extends AsyncTask<Job, Void, Void> {
-        private PersonDao dao;
+        private final PersonDao dao;
 
         public InsertJobAsync(PersonDao dao){
             this.dao = dao;
@@ -67,7 +67,7 @@ public class RoomRepo {
     }
 
     private static class DeletePersonAsync extends AsyncTask<Person, Void, Void> {
-        private PersonDao dao;
+        private final PersonDao dao;
 
         public DeletePersonAsync(PersonDao dao){
             this.dao = dao;
@@ -85,7 +85,7 @@ public class RoomRepo {
     }
 
     private static class DeletePersonByNameAsync extends AsyncTask<String, Void, Void> {
-        private PersonDao dao;
+        private final PersonDao dao;
 
         public DeletePersonByNameAsync(PersonDao dao){
             this.dao = dao;
@@ -103,7 +103,7 @@ public class RoomRepo {
     }
 
     private static class DeleteJobAsync extends AsyncTask<Job, Void, Void> {
-        private PersonDao dao;
+        private final PersonDao dao;
 
         public DeleteJobAsync(PersonDao dao){
             this.dao = dao;
@@ -121,7 +121,7 @@ public class RoomRepo {
     }
 
     private static class UpdatePersonAsync extends AsyncTask<Person, Void, Void> {
-        private PersonDao dao;
+        private final PersonDao dao;
 
         public UpdatePersonAsync(PersonDao dao){
             this.dao = dao;
@@ -139,7 +139,7 @@ public class RoomRepo {
     }
 
     private static class UpdateJobAsync extends AsyncTask<Job, Void, Void> {
-        private PersonDao dao;
+        private final PersonDao dao;
 
         public UpdateJobAsync(PersonDao dao){
             this.dao = dao;

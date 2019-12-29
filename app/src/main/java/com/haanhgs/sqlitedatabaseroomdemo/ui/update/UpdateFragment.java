@@ -14,8 +14,6 @@ public class UpdateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_update, container, false);
-
-        return root;
+        return inflater.inflate(R.layout.fragment_update, container, false);
     }
 }

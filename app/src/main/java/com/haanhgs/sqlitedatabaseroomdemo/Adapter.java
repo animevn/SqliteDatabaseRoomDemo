@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private List<Person> allPerson;
-    private Context context;
+    private final Context context;
     private Model model;
     private LifecycleOwner owner;
 
@@ -76,10 +76,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvId;
-        private TextView tvName;
-        private TextView tvAge;
-        private TextView tvJob;
+        private final TextView tvId;
+        private final TextView tvName;
+        private final TextView tvAge;
+        private final TextView tvJob;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

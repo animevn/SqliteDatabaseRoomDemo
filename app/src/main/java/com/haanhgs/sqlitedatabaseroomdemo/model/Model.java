@@ -8,9 +8,9 @@ import androidx.lifecycle.LiveData;
 
 public class Model extends AndroidViewModel {
 
-    private RoomRepo repo;
-    private LiveData<List<Person>> allPerson;
-    private LiveData<List<Job>> allJob;
+    private final RoomRepo repo;
+    private final LiveData<List<Person>> allPerson;
+    private final LiveData<List<Job>> allJob;
 
 
 
