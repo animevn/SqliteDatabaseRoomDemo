@@ -26,7 +26,7 @@ public interface PersonDao {
     @Update
     void update(Person person);
 
-    @Query("select * from person_table where person_id = :personId limit 1")
+    @Query("select * from person_table where person_id = :personId")
     LiveData<Person> findPersonById(int personId);
 
     @Query("select * from person_table order by person_id asc")
