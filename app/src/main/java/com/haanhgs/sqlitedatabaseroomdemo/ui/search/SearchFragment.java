@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -19,6 +20,9 @@ import com.haanhgs.sqlitedatabaseroomdemo.Adapter;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
+
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
@@ -49,12 +53,12 @@ public class SearchFragment extends Fragment {
         model = ViewModelProviders.of(this).get(Model.class);
 //        adapter.setOwner(this);
 //        adapter.setModel(model);
-//        model.findPersonByName(name).observe(this, new Observer<List<Person>>() {
-//            @Override
-//            public void onChanged(List<Person> people) {
-//                adapter.setAllPerson(people);
-//            }
-//        });
+        model.findPersonByName(name).observe(this, new Observer<List<PersonWithJob>>() {
+            @Override
+            public void onChanged(List<PersonWithJob> people) {
+                adapter.setAllPerson(people);
+            }
+        });
     }
 
     private void setupSwipe(){
@@ -69,7 +73,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                model.deletePerson(adapter.getPersonAtPosition(viewHolder.getAdapterPosition()));
+                model.deletePerson(adapter.getPersonAtPosition(viewHolder.getAdapterPosition()).getPersonId());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
             }
         });

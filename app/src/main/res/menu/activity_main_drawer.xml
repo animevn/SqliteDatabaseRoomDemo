@@ -13,14 +13,6 @@
             android:icon="@drawable/insert"
             android:title="@string/insert" />
         <item
-            android:id="@+id/mniUpdate"
-            android:icon="@drawable/update"
-            android:title="@string/update" />
-        <item
-            android:id="@+id/mniDelete"
-            android:icon="@drawable/delete"
-            android:title="@string/delete" />
-        <item
             android:id="@+id/mniSearch"
             android:icon="@drawable/search"
             android:title="@string/search" />

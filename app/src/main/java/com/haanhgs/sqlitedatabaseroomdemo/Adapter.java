@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
-
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -32,7 +30,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(
-                R.layout.fragment_home_recycler_item,
+                R.layout.recycler_item,
                 parent, false);
         return new ViewHolder(view);
     }

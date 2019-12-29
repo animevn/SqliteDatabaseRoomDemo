@@ -74,7 +74,7 @@ public class Model extends AndroidViewModel {
         return repo.findPersonById(personId);
     }
 
-    public LiveData<List<Person>> findPersonByName(String name){
+    public LiveData<List<PersonWithJob>> findPersonByName(String name){
         return repo.findPersonByName(name);
     }
 

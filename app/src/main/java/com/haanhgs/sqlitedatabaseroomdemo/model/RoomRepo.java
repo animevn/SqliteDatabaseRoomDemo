@@ -186,7 +186,7 @@ public class RoomRepo {
         return personDao.findPersonById(personId);
     }
 
-    public LiveData<List<Person>> findPersonByName(String name){
+    public LiveData<List<PersonWithJob>> findPersonByName(String name){
         return personDao.findPersonByName(name);
     }
 
