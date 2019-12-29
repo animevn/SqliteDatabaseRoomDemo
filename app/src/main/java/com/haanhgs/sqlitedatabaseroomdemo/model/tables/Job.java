@@ -1,4 +1,4 @@
-package com.haanhgs.sqlitedatabaseroomdemo.model;
+package com.haanhgs.sqlitedatabaseroomdemo.model.tables;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

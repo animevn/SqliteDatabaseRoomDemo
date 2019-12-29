@@ -1,5 +1,9 @@
 package com.haanhgs.sqlitedatabaseroomdemo.model;
 
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Job;
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Person;
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
+
 import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -14,8 +18,7 @@ public interface PersonDao {
     @Insert
     void insertPerson(Person person);
 
-    @Delete
-    void deletePerson(Person person);
+
 
     @Query("delete from person_table")
     void deleteAllPerson();
@@ -29,8 +32,19 @@ public interface PersonDao {
     @Query("select * from person_table where person_id = :personId")
     LiveData<Person> findPersonById(int personId);
 
-    @Query("select * from person_table order by person_id asc")
-    LiveData<List<Person>> getAllPerson();
+//    @Query("select * from person_table order by person_id asc")
+//    LiveData<List<Person>> getAllPerson();
+
+    @Query("select person_table.person_id, person_table.name, person_table.age, " +
+            "job_table.job_id, job_table.job_name from person_table left join job_table " +
+            "on person_table.joib_id = job_table.job_id")
+    LiveData<List<PersonWithJob>> getAllPerson();
+
+    @Delete
+    void deletePerson(Person person);
+
+    @Query("delete from person_table where person_id = :personId")
+    void deletePerson(int personId);
 
     @Query("select * from person_table limit 1")
     Person[] getAnyPerson();

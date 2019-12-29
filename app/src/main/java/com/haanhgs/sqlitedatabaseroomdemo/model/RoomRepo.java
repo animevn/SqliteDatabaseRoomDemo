@@ -6,16 +6,20 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Job;
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Person;
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
+
 import java.util.List;
 import androidx.lifecycle.LiveData;
 
 public class RoomRepo {
 
     private final PersonDao personDao;
-    private final LiveData<List<Person>> allPerson;
+    private final LiveData<List<PersonWithJob>> allPerson;
     private final LiveData<List<Job>> allJob;
 
-    public LiveData<List<Person>> getAllPerson() {
+    public LiveData<List<PersonWithJob>> getAllPerson() {
         return allPerson;
     }
 
@@ -82,6 +86,24 @@ public class RoomRepo {
 
     public void deletePerson(Person person){
         new DeletePersonAsync(personDao).execute(person);
+    }
+
+    private static class DeletePersonIdAsync extends AsyncTask<Integer, Void, Void> {
+        private final PersonDao dao;
+
+        public DeletePersonIdAsync(PersonDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            dao.deletePerson(integers[0]);
+            return null;
+        }
+    }
+
+    public void deletePerson(int personId){
+        new DeletePersonIdAsync(personDao).execute(personId);
     }
 
     private static class DeletePersonByNameAsync extends AsyncTask<String, Void, Void> {

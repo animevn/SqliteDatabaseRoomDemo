@@ -1,31 +1,23 @@
-package com.haanhgs.sqlitedatabaseroomdemo.model;
+package com.haanhgs.sqlitedatabaseroomdemo.model.tables;
 
 import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "person_table")
-public class Person {
+public class PersonWithJob {
 
-    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "person_id")
     private int personId;
 
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "job_id")
-    private int jobId;
-
     @ColumnInfo(name = "age")
     private int age;
 
-    public Person(int personId, String name, int jobId, int age) {
-        this.personId = personId;
-        this.name = name;
-        this.age = age;
-        this.jobId = jobId;
-    }
+    @ColumnInfo(name = "job_id")
+    private int jobId;
+
+    @ColumnInfo(name = "job_name")
+    private String jobName;
 
     public int getPersonId() {
         return personId;
@@ -49,6 +41,14 @@ public class Person {
 
     public void setJobId(int jobId) {
         this.jobId = jobId;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     public int getAge() {

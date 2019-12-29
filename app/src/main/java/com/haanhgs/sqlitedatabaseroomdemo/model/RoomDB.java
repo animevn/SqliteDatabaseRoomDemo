@@ -2,6 +2,10 @@ package com.haanhgs.sqlitedatabaseroomdemo.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Job;
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Person;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -27,14 +31,16 @@ public abstract class RoomDB extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            if (personDao.getAnyPerson().length == 0){
-                for (int i = 0; i < strings.length; i++) {
-                    personDao.insertPerson(new Person(0, strings[i], jobs[i], ages[i]));
-                }
-            }
+
             if (personDao.getAnyJob().length == 0){
                 for (String string:jobNames){
                     personDao.insertJob(new Job(0, string));
+                }
+            }
+
+            if (personDao.getAnyPerson().length == 0){
+                for (int i = 0; i < strings.length; i++) {
+                    personDao.insertPerson(new Person(0, strings[i], jobs[i], ages[i]));
                 }
             }
             return null;

@@ -6,36 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.haanhgs.sqlitedatabaseroomdemo.model.Job;
-import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
-import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
+
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
+
 import java.util.List;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    private List<Person> allPerson;
+    private List<PersonWithJob> allPerson;
     private final Context context;
-    private Model model;
-    private LifecycleOwner owner;
-
-    public void setOwner(LifecycleOwner owner) {
-        this.owner = owner;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
 
     public Adapter(Context context){
         this.context = context;
     }
 
-    public void setAllPerson(List<Person> allPerson) {
+    public void setAllPerson(List<PersonWithJob> allPerson) {
         this.allPerson = allPerson;
         notifyDataSetChanged();
     }
@@ -51,22 +39,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Person person = allPerson.get(position);
+        PersonWithJob person = allPerson.get(position);
         holder.tvId.setText(String.format("%s", person.getPersonId()));
         holder.tvName.setText(person.getName());
         holder.tvAge.setText(String.format("%s", person.getAge()));
-
-        int jobId = person.getJobId();
-        model.findJobById(jobId).observe(owner, new Observer<Job>() {
-            @Override
-            public void onChanged(Job job) {
-                if (job != null){
-                    holder.tvJob.setText(job.getJobName());
-                }else {
-                    holder.tvJob.setText("");
-                }
-            }
-        });
+        holder.tvJob.setText(person.getJobName());
     }
 
     @Override
@@ -99,7 +76,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
     }
 
-    public Person getPersonAtPosition(int position){
+    public PersonWithJob getPersonAtPosition(int position){
         return allPerson.get(position);
     }
 }

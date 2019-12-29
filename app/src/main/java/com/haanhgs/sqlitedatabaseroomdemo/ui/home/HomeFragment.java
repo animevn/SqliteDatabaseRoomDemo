@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.haanhgs.sqlitedatabaseroomdemo.Adapter;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
-import com.haanhgs.sqlitedatabaseroomdemo.model.Person;
+import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
+
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -42,11 +43,11 @@ public class HomeFragment extends Fragment {
 
     private void initModel(){
         model = ViewModelProviders.of(this).get(Model.class);
-        adapter.setModel(model);
-        adapter.setOwner(this);
-        model.getAllPerson().observe(this, new Observer<List<Person>>() {
+//        adapter.setModel(model);
+//        adapter.setOwner(this);
+        model.getAllPerson().observe(this, new Observer<List<PersonWithJob>>() {
             @Override
-            public void onChanged(List<Person> people) {
+            public void onChanged(List<PersonWithJob> people) {
                 adapter.setAllPerson(people);
             }
         });
@@ -64,7 +65,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                model.deletePerson(adapter.getPersonAtPosition(viewHolder.getAdapterPosition()));
+                model.deletePerson(adapter.getPersonAtPosition(viewHolder.getAdapterPosition()).getPersonId());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
             }
         });
