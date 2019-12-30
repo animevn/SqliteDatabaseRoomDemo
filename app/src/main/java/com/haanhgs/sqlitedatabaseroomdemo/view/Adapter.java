@@ -1,4 +1,4 @@
-package com.haanhgs.sqlitedatabaseroomdemo;
+package com.haanhgs.sqlitedatabaseroomdemo.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
 import java.util.List;
 import androidx.annotation.NonNull;

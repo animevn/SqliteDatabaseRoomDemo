@@ -1,4 +1,4 @@
-package com.haanhgs.sqlitedatabaseroomdemo.ui.search;
+package com.haanhgs.sqlitedatabaseroomdemo.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,15 +16,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.haanhgs.sqlitedatabaseroomdemo.Adapter;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
-import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
+import com.haanhgs.sqlitedatabaseroomdemo.viewmodel.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
-
 import java.util.List;
 
-public class SearchFragment extends Fragment {
+public class FragmentSearch extends Fragment {
 
     private Context context;
     private Model model;
@@ -51,8 +49,6 @@ public class SearchFragment extends Fragment {
 
     private void initModel(String name){
         model = ViewModelProviders.of(this).get(Model.class);
-//        adapter.setOwner(this);
-//        adapter.setModel(model);
         model.findPersonByName(name).observe(this, new Observer<List<PersonWithJob>>() {
             @Override
             public void onChanged(List<PersonWithJob> people) {
@@ -73,13 +69,13 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                model.deletePerson(adapter.getPersonAtPosition(viewHolder.getAdapterPosition()).getPersonId());
+                int position = viewHolder.getAdapterPosition();
+                model.deletePerson(adapter.getPersonAtPosition(position).getPersonId());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
             }
         });
         helper.attachToRecyclerView(rvSearch);
     }
-
 
     private void handleButtonClick(){
         bnSearch.setOnClickListener(new View.OnClickListener() {

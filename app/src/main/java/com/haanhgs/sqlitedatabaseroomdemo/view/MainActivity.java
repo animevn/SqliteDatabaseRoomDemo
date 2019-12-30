@@ -1,14 +1,14 @@
-package com.haanhgs.sqlitedatabaseroomdemo;
+package com.haanhgs.sqlitedatabaseroomdemo.view;
 
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
+import com.haanhgs.sqlitedatabaseroomdemo.R;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,31 +17,48 @@ import android.view.Menu;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private NavController navController;
+
+    private void setupDrawer(){
+        DrawerLayout drawer = findViewById(R.id.dlMain);
+        NavigationView navigationView = findViewById(R.id.nvMain);
+        mAppBarConfiguration = new AppBarConfiguration
+                .Builder(R.id.nav_home, R.id.mniInsert, R.id.mniSearch)
+                .setDrawerLayout(drawer)
+                .build();
+        navController = Navigation.findNavController(this, R.id.frMain);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    private void setupToolbar(){
+        Toolbar toolbar = findViewById(R.id.tbrMain);
+        setSupportActionBar(toolbar);
+    }
+
+    private void openFragmentDetail(){
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isNew", true);
+        navController.navigate(R.id.action_nav_home_to_mniInsert, bundle);
+    }
+
+    private void setupFAB(){
+        FloatingActionButton fab = findViewById(R.id.fbnMain);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFragmentDetail();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.tbrMain);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fbnMain);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.dlMain);
-        NavigationView navigationView = findViewById(R.id.nvMain);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.mniInsert, R.id.mniSearch,
-                R.id.mniSearch, R.id.mniDelete)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.frMain);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        setupToolbar();
+        setupDrawer();
+        setupFAB();
     }
 
     @Override

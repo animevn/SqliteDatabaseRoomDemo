@@ -1,11 +1,10 @@
-package com.haanhgs.sqlitedatabaseroomdemo.model;
+package com.haanhgs.sqlitedatabaseroomdemo.viewmodel;
 
 import android.app.Application;
-
+import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Job;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Person;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
-
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -16,8 +15,6 @@ public class Model extends AndroidViewModel {
     private final RoomRepo repo;
     private final LiveData<List<PersonWithJob>> allPerson;
     private final LiveData<List<Job>> allJob;
-
-
 
     public Model(@NonNull Application application) {
         super(application);
@@ -77,5 +74,4 @@ public class Model extends AndroidViewModel {
     public LiveData<List<PersonWithJob>> findPersonByName(String name){
         return repo.findPersonByName(name);
     }
-
 }

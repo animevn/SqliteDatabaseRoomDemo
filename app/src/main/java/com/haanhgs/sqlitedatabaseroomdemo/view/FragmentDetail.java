@@ -1,4 +1,4 @@
-package com.haanhgs.sqlitedatabaseroomdemo.ui.insert;
+package com.haanhgs.sqlitedatabaseroomdemo.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,13 +19,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Job;
-import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
+import com.haanhgs.sqlitedatabaseroomdemo.viewmodel.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Person;
 import com.haanhgs.sqlitedatabaseroomdemo.model.RoomRepo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InsertFragment extends Fragment {
+public class FragmentDetail extends Fragment {
 
     private Context context;
     private final List<String> strings = new ArrayList<>();
@@ -78,8 +78,6 @@ public class InsertFragment extends Fragment {
             }
         });
     }
-
-
 
     private void handleSpinner(){
         spJob.setAdapter(adapter);
@@ -178,7 +176,7 @@ public class InsertFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_insert, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
         initViews(view);
         initModel();
         handleSpinner();

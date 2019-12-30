@@ -1,4 +1,4 @@
-package com.haanhgs.sqlitedatabaseroomdemo.ui.home;
+package com.haanhgs.sqlitedatabaseroomdemo.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,14 +13,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.haanhgs.sqlitedatabaseroomdemo.Adapter;
 import com.haanhgs.sqlitedatabaseroomdemo.R;
-import com.haanhgs.sqlitedatabaseroomdemo.model.Model;
+import com.haanhgs.sqlitedatabaseroomdemo.viewmodel.Model;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
-
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class FragmentHome extends Fragment {
 
     private Context context;
     private Adapter adapter;
@@ -43,8 +41,6 @@ public class HomeFragment extends Fragment {
 
     private void initModel(){
         model = ViewModelProviders.of(this).get(Model.class);
-//        adapter.setModel(model);
-//        adapter.setOwner(this);
         model.getAllPerson().observe(this, new Observer<List<PersonWithJob>>() {
             @Override
             public void onChanged(List<PersonWithJob> people) {
@@ -65,7 +61,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                model.deletePerson(adapter.getPersonAtPosition(viewHolder.getAdapterPosition()).getPersonId());
+                int position = viewHolder.getAdapterPosition();
+                model.deletePerson(adapter.getPersonAtPosition(position).getPersonId());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
             }
         });

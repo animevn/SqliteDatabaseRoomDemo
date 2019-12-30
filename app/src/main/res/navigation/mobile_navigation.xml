@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.home.HomeFragment"
+        android:name="com.haanhgs.sqlitedatabaseroomdemo.view.FragmentHome"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
 
@@ -22,26 +22,16 @@
 
     <fragment
         android:id="@+id/mniInsert"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.insert.InsertFragment"
+        android:name="com.haanhgs.sqlitedatabaseroomdemo.view.FragmentDetail"
         android:label="@string/insert"
-        tools:layout="@layout/fragment_insert" />
+        tools:layout="@layout/fragment_detail" />
 
-    <fragment
-        android:id="@+id/mniUpdate"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.update.UpdateFragment"
-        android:label="@string/update"
-        tools:layout="@layout/fragment_update" />
 
     <fragment
         android:id="@+id/mniSearch"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.search.SearchFragment"
+        android:name="com.haanhgs.sqlitedatabaseroomdemo.view.FragmentSearch"
         android:label="@string/search"
         tools:layout="@layout/fragment_search" />
 
-    <fragment
-        android:id="@+id/mniDelete"
-        android:name="com.haanhgs.sqlitedatabaseroomdemo.ui.delete.DeleteFragment"
-        android:label="@string/delete"
-        tools:layout="@layout/fragment_delete" />
 
 </navigation>
