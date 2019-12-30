@@ -27,11 +27,11 @@ public interface PersonDao {
     void deletePersonByName(String name);
 
     @Query("select * from person_table where person_id = :personId")
-    LiveData<Person> findPersonById(int personId);
+    LiveData<Person> getPersonById(int personId);
 
     @Query("select person_table.person_id, person_table.name, person_table.age, " +
             "job_table.job_id, job_table.job_name from person_table left join job_table " +
-            "on person_table.joib_id = job_table.job_id")
+            "on person_table.job_id = job_table.job_id")
     LiveData<List<PersonWithJob>> getAllPerson();
 
     @Delete
@@ -45,8 +45,8 @@ public interface PersonDao {
 
     @Query("select person_table.person_id, person_table.name, person_table.age, " +
             "job_table.job_id, job_table.job_name from person_table left join job_table " +
-            "on person_table.joib_id = job_table.job_id where name = :name")
-    LiveData<List<PersonWithJob>> findPersonByName(String name);
+            "on person_table.job_id = job_table.job_id where name = :name")
+    LiveData<List<PersonWithJob>> getPersonByName(String name);
 
     @Insert
     void insertJob(Job job);
@@ -64,7 +64,7 @@ public interface PersonDao {
     Job[] getAnyJob();
 
     @Query("select * from job_table where job_id = :jobId limit 1")
-    LiveData<Job> findJobById(int jobId);
+    LiveData<Job> getJobById(int jobId);
 
     @Query("select * from job_table order by job_id asc")
     LiveData<List<Job>> getAllJob();

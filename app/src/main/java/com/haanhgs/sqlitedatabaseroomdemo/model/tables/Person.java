@@ -14,7 +14,7 @@ public class Person {
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "joib_id")
+    @ColumnInfo(name = "job_id")
     private int jobId;
 
     @ColumnInfo(name = "age")

@@ -45,6 +45,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onChanged(List<PersonWithJob> people) {
                 adapter.setAllPerson(people);
+                adapter.notifyDataSetChanged();
             }
         });
     }

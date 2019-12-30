@@ -93,7 +93,7 @@ public class FragmentDetail extends Fragment {
     }
 
     private void updateSpinnerWithID(int jobId){
-        model.findJobById(jobId).observe(this, new Observer<Job>() {
+        model.getJobById(jobId).observe(this, new Observer<Job>() {
             @Override
             public void onChanged(Job job) {
                 if (job != null){
@@ -104,7 +104,7 @@ public class FragmentDetail extends Fragment {
     }
 
     private void updateCurrentViews(){
-        model.findPersonById(personId).observe(this, new Observer<Person>() {
+        model.getPersonById(personId).observe(this, new Observer<Person>() {
             @Override
             public void onChanged(Person person) {
                 currentPerson = person;

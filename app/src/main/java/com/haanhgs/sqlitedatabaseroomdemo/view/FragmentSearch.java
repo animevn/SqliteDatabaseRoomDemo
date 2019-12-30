@@ -49,7 +49,7 @@ public class FragmentSearch extends Fragment {
 
     private void initModel(String name){
         model = ViewModelProviders.of(this).get(Model.class);
-        model.findPersonByName(name).observe(this, new Observer<List<PersonWithJob>>() {
+        model.getPersonByName(name).observe(this, new Observer<List<PersonWithJob>>() {
             @Override
             public void onChanged(List<PersonWithJob> people) {
                 adapter.setAllPerson(people);

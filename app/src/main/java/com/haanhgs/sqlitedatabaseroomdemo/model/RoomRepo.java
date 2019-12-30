@@ -178,16 +178,16 @@ public class RoomRepo {
         new UpdateJobAsync(personDao).execute(job);
     }
 
-    public LiveData<Job> findJobById(int jobId){
-        return  personDao.findJobById(jobId);
+    public LiveData<Job> getJobById(int jobId){
+        return  personDao.getJobById(jobId);
     }
 
-    public LiveData<Person> findPersonById(int personId){
-        return personDao.findPersonById(personId);
+    public LiveData<Person> getPersonById(int personId){
+        return personDao.getPersonById(personId);
     }
 
-    public LiveData<List<PersonWithJob>> findPersonByName(String name){
-        return personDao.findPersonByName(name);
+    public LiveData<List<PersonWithJob>> getPersonByName(String name){
+        return personDao.getPersonByName(name);
     }
 
     public static void hideSoftKey(Context context, View view){
