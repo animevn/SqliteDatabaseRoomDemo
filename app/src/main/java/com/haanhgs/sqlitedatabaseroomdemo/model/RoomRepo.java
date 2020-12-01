@@ -11,9 +11,15 @@ import com.haanhgs.sqlitedatabaseroomdemo.model.tables.Person;
 import com.haanhgs.sqlitedatabaseroomdemo.model.tables.PersonWithJob;
 
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import androidx.lifecycle.LiveData;
 
 public class RoomRepo {
+
+
 
     private final PersonDao personDao;
     private final LiveData<List<PersonWithJob>> allPerson;
@@ -39,6 +45,7 @@ public class RoomRepo {
 
         public InsertPersonAsync(PersonDao dao){
             this.dao = dao;
+
         }
 
         @Override

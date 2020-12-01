@@ -16,6 +16,7 @@ import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
 
